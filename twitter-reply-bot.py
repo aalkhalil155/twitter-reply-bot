@@ -132,7 +132,7 @@ class TwitterBot:
         now = datetime.utcnow()
 
         # Subtract 2 hours to get the start time
-        start_time = now - timedelta(minutes=20)
+        start_time = now - timedelta(minutes=120)
 
         # Convert to required string format
         start_time_str = start_time.strftime("%Y-%m-%dT%H:%M:%SZ")
