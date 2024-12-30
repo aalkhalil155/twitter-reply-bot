@@ -32,7 +32,8 @@ class TwitterBot:
                                          consumer_secret=TWITTER_API_SECRET,
                                          access_token=TWITTER_ACCESS_TOKEN,
                                          access_token_secret=TWITTER_ACCESS_TOKEN_SECRET,
-                                         wait_on_rate_limit=True)
+                                         wait_on_rate_limit=True,
+                                        sleep_on_rate_limit=False)
 
         #self.airtable = Airtable(AIRTABLE_BASE_KEY, AIRTABLE_TABLE_NAME, AIRTABLE_API_KEY)
         self.twitter_me_id = self.get_me_id()
