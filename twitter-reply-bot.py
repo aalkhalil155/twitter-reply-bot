@@ -27,21 +27,14 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "YourKey")
 # TwitterBot class to help us organize our code and manage shared state
 class TwitterBot:
     def __init__(self):
-        # self.twitter_api = tweepy.Client(bearer_token=TWITTER_BEARER_TOKEN,
-        #                                  consumer_key=TWITTER_API_KEY,
-        #                                  consumer_secret=TWITTER_API_SECRET,
-        #                                  access_token=TWITTER_ACCESS_TOKEN,
-        #                                  access_token_secret=TWITTER_ACCESS_TOKEN_SECRET,
-        #                                  wait_on_rate_limit=True)
+        self.twitter_api = tweepy.Client(bearer_token=TWITTER_BEARER_TOKEN,
+                                         consumer_key=TWITTER_API_KEY,
+                                         consumer_secret=TWITTER_API_SECRET,
+                                         access_token=TWITTER_ACCESS_TOKEN,
+                                         access_token_secret=TWITTER_ACCESS_TOKEN_SECRET,
+                                         wait_on_rate_limit=True)
 
-        self.twitter_api = tweepy.Client(
-                                bearer_token=TWITTER_BEARER_TOKEN,
-                                consumer_key=TWITTER_API_KEY,
-                                consumer_secret=TWITTER_API_SECRET,
-                                access_token=None,
-                                access_token_secret=None,
-                                wait_on_rate_limit=True
-                            )
+
 
 
 
