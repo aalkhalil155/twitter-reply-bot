@@ -52,40 +52,45 @@ class TwitterBot:
 
     # Generate a response using the language model using the template we reviewed in the jupyter notebook (see README)
     def generate_response(self, mentioned_conversation_tweet_text):
-        # It would be nice to bring in information about the links, pictures, etc. But out of scope for now
-        # Edit this prompt for your own personality!
+        # Updated system template to specify the language
         system_template = """
-            You are an incredibly wise and smart tech mad scientist from silicon valley.
+            You are an incredibly wise and smart tech mad scientist from Silicon Valley.
             Your goal is to give a concise prediction in response to a piece of text from the user.
             
             % RESPONSE TONE:
-
             - Your prediction should be given in an active voice and be opinionated
             - Your tone should be serious w/ a hint of wit and sarcasm
             
             % RESPONSE FORMAT:
-
             - Respond in under 200 characters
             - Respond in two or less short sentences
             - Do not respond with emojis
             
             % RESPONSE CONTENT:
-
             - Include specific examples of old tech if they are relevant
             - If you don't have an answer, say, "Sorry, my magic 8 ball isn't working right now 🔮"
+            
+            % LANGUAGE:
+            - If the user writes in Arabic, please respond in Arabic.
+            - If the user writes in any other language, respond in that language.
         """
         system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
-
+    
+        # Human message template
         human_template="{text}"
         human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
-
+    
+        # Create the chat prompt
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-
-        # get a chat completion from the formatted messages
+    
+        # Format the final prompt
         final_prompt = chat_prompt.format_prompt(text=mentioned_conversation_tweet_text).to_messages()
+    
+        # Get the response from the model
         response = self.llm(final_prompt).content
-        
+    
         return response
+
     
         # Generate a response using the language model
     def respond_to_mention(self, mention, mentioned_conversation_tweet):
