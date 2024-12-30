@@ -18,9 +18,9 @@ TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN", "YourKey")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET", "YourKey")
 TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN", "YourKey")
 
-AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY", "YourKey")
-AIRTABLE_BASE_KEY = os.getenv("AIRTABLE_BASE_KEY", "YourKey")
-AIRTABLE_TABLE_NAME = os.getenv("AIRTABLE_TABLE_NAME", "YourKey")
+#AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY", "YourKey")
+#AIRTABLE_BASE_KEY = os.getenv("AIRTABLE_BASE_KEY", "YourKey")
+#AIRTABLE_TABLE_NAME = os.getenv("AIRTABLE_TABLE_NAME", "YourKey")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "YourKey")
 
@@ -34,7 +34,7 @@ class TwitterBot:
                                          access_token_secret=TWITTER_ACCESS_TOKEN_SECRET,
                                          wait_on_rate_limit=True)
 
-        self.airtable = Airtable(AIRTABLE_BASE_KEY, AIRTABLE_TABLE_NAME, AIRTABLE_API_KEY)
+        #self.airtable = Airtable(AIRTABLE_BASE_KEY, AIRTABLE_TABLE_NAME, AIRTABLE_API_KEY)
         self.twitter_me_id = self.get_me_id()
         self.tweet_response_limit = 35 # How many tweets to respond to each time the program wakes up
 
@@ -97,14 +97,14 @@ class TwitterBot:
             return
         
         # Log the response in airtable if it was successful
-        self.airtable.insert({
-            'mentioned_conversation_tweet_id': str(mentioned_conversation_tweet.id),
-            'mentioned_conversation_tweet_text': mentioned_conversation_tweet.text,
-            'tweet_response_id': response_tweet.data['id'],
-            'tweet_response_text': response_text,
-            'tweet_response_created_at' : datetime.utcnow().isoformat(),
-            'mentioned_at' : mention.created_at.isoformat()
-        })
+        # self.airtable.insert({
+            # 'mentioned_conversation_tweet_id': str(mentioned_conversation_tweet.id),
+            # 'mentioned_conversation_tweet_text': mentioned_conversation_tweet.text,
+            # 'tweet_response_id': response_tweet.data['id'],
+            # 'tweet_response_text': response_text,
+            # 'tweet_response_created_at' : datetime.utcnow().isoformat(),
+            # 'mentioned_at' : mention.created_at.isoformat()
+        # })
         return True
     
     # Returns the ID of the authenticated user for tweet creation purposes
@@ -163,7 +163,7 @@ class TwitterBot:
             
             # If the mention *is* the conversation or you've already responded, skip it and don't respond
             if (mentioned_conversation_tweet.id != mention.id
-                and not self.check_already_responded(mentioned_conversation_tweet.id)):
+                # and not self.check_already_responded(mentioned_conversation_tweet.id)):
 
                 self.respond_to_mention(mention, mentioned_conversation_tweet)
         return True
@@ -182,7 +182,7 @@ def job():
 
 if __name__ == "__main__":
     # Schedule the job to run every 5 minutes. Edit to your liking, but watch out for rate limits
-    schedule.every(6).minutes.do(job)
+    schedule.every(3).minutes.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
