@@ -162,7 +162,7 @@ class TwitterBot:
             mentioned_conversation_tweet = self.get_mention_conversation_tweet(mention)
             
             # If the mention *is* the conversation or you've already responded, skip it and don't respond
-            if (mentioned_conversation_tweet.id != mention.id
+            if (mentioned_conversation_tweet.id != mention.id):
                 # and not self.check_already_responded(mentioned_conversation_tweet.id)):
 
                 self.respond_to_mention(mention, mentioned_conversation_tweet)
