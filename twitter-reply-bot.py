@@ -140,7 +140,7 @@ class TwitterBot:
         now = datetime.utcnow()
 
         # Subtract 2 hours to get the start time
-        start_time = now - timedelta(minutes=20)
+        start_time = now - timedelta(minutes=7)
 
         # Convert to required string format
         start_time_str = start_time.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -194,7 +194,7 @@ def job():
 
 if __name__ == "__main__":
     # Schedule the job to run every 5 minutes. Edit to your liking, but watch out for rate limits
-    schedule.every(3).minutes.do(job)
+    schedule.every(6).minutes.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
